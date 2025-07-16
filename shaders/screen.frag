@@ -4,8 +4,8 @@
 
 layout(set = 0, binding = 0) uniform Variables
 {
-	dvec2 center;
-	double zoom;
+	vec2 center;
+	float zoom;
 	float aspect;
 	int maxIterations;
 } variables;
@@ -25,17 +25,17 @@ vec3 ToNonLinear(vec3 linearColor)
 	return (mix(lower, higher, cutoff));
 }
 
-vec3 Manderbrot(dvec2 uv)
+vec3 Manderbrot(vec2 uv)
 {
-	double x = (uv.x - 0.5) * 2.0 * variables.aspect / variables.zoom + variables.center.x;
-	double y = (uv.y - 0.5) * 2.0 / variables.zoom + variables.center.y;
-	dvec2 c = dvec2(x, y);
-	dvec2 z = dvec2(0.0);
+	float x = (uv.x - 0.5) * 2.0 * variables.aspect / variables.zoom + variables.center.x;
+	float y = (uv.y - 0.5) * 2.0 / variables.zoom + variables.center.y;
+	vec2 c = vec2(x, y);
+	vec2 z = vec2(0.0);
 
 	int iterations;
 	for (iterations = 0; iterations < variables.maxIterations; iterations++)
 	{
-		double tmpX = (z.x * z.x - z.y * z.y) + c.x;
+		float tmpX = (z.x * z.x - z.y * z.y) + c.x;
 		z.y = 2.0 * z.x * z.y + c.y;
 		z.x = tmpX;
 
@@ -55,8 +55,8 @@ vec3 Manderbrot(dvec2 uv)
 
 void main()
 {
-	//dvec2 uv = gl_FragCoord.xy / resolution.xy;
-	dvec2 uv = localUV;
+	//vec2 uv = gl_FragCoord.xy / resolution.xy;
+	vec2 uv = localUV;
 	vec3 result = Manderbrot(uv);
 	pixelColor = vec4(result, 1.0);
 }
