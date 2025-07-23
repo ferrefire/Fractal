@@ -40,7 +40,7 @@ void Test(VkCommandBuffer commandBuffer, uint32_t currentFrame)
 
 	if (start)
 	{
-		uniformData.center = point2D({-0.5, 0.0});
+		uniformData.center = point2D(-0.5, 0.0);
 		uniformData.zoom = 1.0;
 		uniformData.aspect = float(Manager::GetWindow().GetConfig().extent.width) / float(Manager::GetWindow().GetConfig().extent.height);
 		uniformData.maxIterations = 30;
